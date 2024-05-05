@@ -1,89 +1,121 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 void main() {
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
+  @override
+  _MyAppState createState() => _MyAppState();
+}
 
-  // This widget is the root of your application.
+class _MyAppState extends State<MyApp> {
+  TextEditingController controller = TextEditingController();
+  TextEditingController controller2 = TextEditingController();
+  int currentIndex = 0;
+  @override
+  State<MyApp> createState() => _MyAppState();// This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-          backgroundColor: Colors.white,
-          appBar: AppBar(
-            elevation: 0,
-            backgroundColor: Colors.white,
-            title: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Icon(Icons.arrow_back, color: Colors.black,),
-                Icon(Icons.ios_share, color: Colors.black),
-              ],
-            ),
-          ),
-          body:  SingleChildScrollView(
-          child: Column(
+        appBar: AppBar(
+          title: Text('6-amaliy ish'),
+          backgroundColor: Colors.green,
+        ),
+        body: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-          Text('5-amaliy ish'),
-      Padding(
-        padding: const EdgeInsets.all(10),
-        child: Container(
-
-          width: double.infinity,
-          height: 200,
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20),
-              image: DecorationImage(
-                image: AssetImage('Rasmlar/rasm2.jpg'),
-                fit: BoxFit.cover,
-              )
-          ),
-        ),
-      ),
-      Padding(
-        padding: const EdgeInsets.all(10),
-        child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-        Row(
-        children: [
-        CircleAvatar(
-        backgroundImage: AssetImage('Rasmlar/rasm1.jpg'),
-      ),
-      Column(
-        children: [
-          Text('Mobil ilovlar'),
-          Text('26.04.2024'),
-        ],
-      ),
-      ],
-    ),
-    Container(
-    height: 24,
-    decoration: BoxDecoration(
-    color: Colors.blue,
-    borderRadius: BorderRadius.circular(20),
-    ),
-
-
-      child: Text('Yuborish'),
-    )
-            ],
-        ),
-      ),
-            Padding(
-              padding: const EdgeInsets.all(10),
-              child: Container(
-                child: Text("Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."),
+            CircleAvatar(
+              backgroundImage: AssetImage(
+                  "assets/images/1.jpg"),
+              radius: 65,
+            ),
+            SizedBox(height: 12),
+            TextField(
+              controller: controller,
+              decoration: InputDecoration(border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(20),
               ),
-            )
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(20),
+                  borderSide: BorderSide(
+                    color: Colors.blue,
+                    width: 3,
+                  ),
+                ),
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(0),
+                  borderSide: BorderSide(
+                    color: Colors.red,
+                    width: 3,
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(height: 12),
+            ElevatedButton(
+              onPressed: () {
+                setState(() {
+                  String text = controller.text;
+                  controller2.text = text;
+                });
+              },
+              child: Text("Yuborish"),
+            ),
+            SizedBox(height: 12),
+            TextField(
+
+              controller: controller2,
+              decoration: InputDecoration(border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10),
+                ),
+              ),
+            ),
           ],
+        ),
+        bottomNavigationBar: Theme(
+          data: ThemeData(
+            canvasColor: Colors.black12,
           ),
-          ),
+        child: BottomNavigationBar(
+          backgroundColor: Color(0xFF1F1F1F),
+          fixedColor: Colors.red,
+          showSelectedLabels: false,
+          showUnselectedLabels: false,
+          iconSize: 24,
+          currentIndex: currentIndex,
+          onTap: (index) {
+            setState(() {
+              currentIndex = index; // Bosilgan tugma indeksini o'zgartirish
+            });
+          },
+          type: BottomNavigationBarType.fixed,
+          unselectedItemColor: Color(0xFF9DB2CE),
+          items: [
+            BottomNavigationBarItem(
+              icon: Icon(Icons.home),
+              label: "Home",
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.business),
+              label: "Biznes",
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.schedule),
+              label: "Jadval",
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.wallet),
+              label: "Hamyon",
+            ),
+          ],
+        ),
+        ),
       ),
     );
   }
